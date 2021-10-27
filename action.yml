@@ -16,7 +16,7 @@ inputs:
   JIRA_LABEL:
     description: 'Specify the label you want to put on JIRA side'
     required: false
-   ISSUE_TYPE:
+  ISSUE_TYPE:
     description: 'Specify the issue type: Task/Bug/Story'
     required: true
 
