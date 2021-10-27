@@ -16,6 +16,9 @@ inputs:
   JIRA_LABEL:
     description: 'Specify the label you want to put on JIRA side'
     required: false
+   ISSUE_TYPE:
+    description: 'Specify the issue type: Task/Bug/Story'
+    required: true
 
 runs:
   using: "composite"
@@ -34,7 +37,7 @@ runs:
       uses: atlassian/gajira-create@v2.0.1
       with:
         project: ${{ inputs.TARGET_JIRA_PROJECT }}
-        issuetype: Task
+        issuetype: ${{ inputs.ISSUE_TYPE }}
         summary: |
            ${{ github.event.issue.title }} [GH#${{ github.event.issue.number }}]
         description: |
