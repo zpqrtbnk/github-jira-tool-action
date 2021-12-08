@@ -47,24 +47,16 @@ runs:
           {panel}
         fields: '{"labels": ["${{ inputs.JIRA_LABEL }}"]}'
 
-    - name: Update title of GitHub issue
+    - name: Update GitHub issue
       uses: actions/github-script@v4.0.2
       with:
         script: |
           const newTitle = `${{ github.event.issue.title }} [${{ steps.create_jira_issue.outputs.issue }}]`
+          const newBody = `Internal Jira issue: [${{ steps.create_jira_issue.outputs.issue }}](${{ inputs.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }})\n\n${{ github.event.issue.body }}
           github.issues.update({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            title: newTitle
-          })
-    - name: Add comment to GitHub issue
-      uses: actions/github-script@v4.0.2
-      with:
-        script: |
-          github.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: 'Internal Jira issue: [${{ steps.create_jira_issue.outputs.issue }}](${{ inputs.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }})'
+            title: newTitle,
+            body: newBody
           })
