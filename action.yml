@@ -52,7 +52,7 @@ runs:
       with:
         script: |
           const newTitle = `${{ github.event.issue.title }} [${{ steps.create_jira_issue.outputs.issue }}]`
-          const newBody = `Internal Jira issue: [${{ steps.create_jira_issue.outputs.issue }}](${{ inputs.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }})\n\n${{ github.event.issue.body }}
+          const newBody = `Internal Jira issue: [${{ steps.create_jira_issue.outputs.issue }}](${{ inputs.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }})\n\n${{ github.event.issue.body }}`
           github.issues.update({
             issue_number: context.issue.number,
             owner: context.repo.owner,
